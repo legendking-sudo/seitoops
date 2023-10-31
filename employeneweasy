@@ -1,0 +1,108 @@
+import java.util.Scanner;
+
+class Employee {
+    String name;
+    String emp_id;
+    String address;
+    long mobile;
+    double basic;
+
+    void acceptPersonalDetails() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name: ");
+        name = sc.nextLine();
+        System.out.println("Enter employee id: ");
+        emp_id = sc.nextLine();
+        System.out.println("Enter address: ");
+        address = sc.nextLine();
+
+        // Validate and accept email address
+        while (true) {
+            System.out.println("Enter email address: ");
+            address = sc.nextLine();
+            if (address.contains("@") && address.contains(".")) {
+                break;
+            } else {
+                System.out.println("Invalid email address. Please enter a valid email address.");
+            }
+        }
+
+        // Validate and accept mobile number
+        while (true) {
+            System.out.println("Enter mobile number: ");
+            mobile = sc.nextLong();
+            if (String.valueOf(mobile).length() == 10) {
+                break;
+            } else {
+                System.out.println("Invalid mobile number. Please enter a 10-digit mobile number.");
+            }
+        }
+    }
+
+    void displayPersonalDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Employee ID: " + emp_id);
+        System.out.println("Email Address: " + address);
+        System.out.println("Mobile Number: " + mobile);
+    }
+
+    double calculateGrossSalary() {
+        double da = basic * 0.97;
+        double hra = basic * 0.10;
+        return da + hra + basic;
+    }
+
+    double calculateNetSalary() {
+        double pf = basic * 0.12;
+        double scf = basic * 0.001;
+        double grossSalary = calculateGrossSalary();
+        return grossSalary - pf - scf;
+    }
+}
+
+public class Driver {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Employee employee = new Employee();
+
+        int x;
+        do {
+            System.out.println("\n1 Accept personal details");
+            System.out.println("2 Accept basic salary");
+            System.out.println("3 Display personal details");
+            System.out.println("4 Display salary details");
+            System.out.println("0 Exit");
+            System.out.print("Enter your choice: ");
+            x = sc.nextInt();
+            sc.nextLine();
+
+            switch (x) {
+                case 1:
+                    employee.acceptPersonalDetails();
+                    break;
+                case 2:
+                    System.out.println("Enter basic pay: ");
+                    employee.basic = sc.nextDouble();
+                    break;
+                case 3:
+                    employee.displayPersonalDetails();
+                    break;
+                case 4:
+                    if (employee.basic != 0) {
+                        System.out.println("Gross salary: " + employee.calculateGrossSalary());
+                        System.out.println("Net salary: " + employee.calculateNetSalary());
+                    } else {
+                        System.out.println("Basic salary not entered yet.");
+                    }
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    break;
+            }
+        } while (x != 0);
+        
+        sc.close();
+    }
+}

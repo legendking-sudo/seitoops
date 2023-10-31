@@ -1,0 +1,197 @@
+import java.util.Scanner;
+
+public class Employee {
+
+	String name;
+	String emp_id;
+	String address;
+	String mail_id;
+	long mobile;
+	void acceptin()
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter name");
+		name=sc.nextLine();
+		System.out.println("Enter employee id");
+		emp_id=sc.nextLine();
+		System.out.println("Enter email address");
+		address=sc.nextLine();
+		char ch='@';
+		boolean chek=true;
+		while(chek)
+		{
+			for(int i=1;i<address.length()-1;i++)
+			{
+				if(address.charAt(i)==ch)
+				{
+					if(ch=='@')
+						ch='.';
+					else
+					{
+						chek=false;
+						break;
+					}
+				}	
+			}
+			if(chek)
+			{
+				System.out.println("Wrong email address. Re-enter email address.");
+				address=sc.nextLine();
+			}
+		}
+		System.out.println("Enter mobile number");
+		mobile=sc.nextLong();
+		while(mobile<=999999999||mobile>=(long)100000*100000)
+		{
+			System.out.println("Incorrect mobile number. Re-enter mobile number");
+			mobile=sc.nextLong();
+		}
+		//sc.close();
+	}
+	void displaypersonal()
+	{
+		System.out.println("Name: "+name);
+		System.out.println("Employee id: "+emp_id);
+		System.out.println("Email Address: "+address);
+		System.out.println("Mobile number: "+mobile);
+	}
+	double calculategross(int basic)
+	{
+		double da=basic*0.97;
+		double hra=basic*0.10;
+		return da+hra+basic;
+	}
+	double calculatenet(double gross, int basic)
+	{
+		double pf=basic*0.12;
+		double scf=basic*0.001;
+		return gross-pf-scf;
+	}
+	
+}
+public class Programmer extends Employee{
+	
+	int basic;
+	void accept()
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Basic Pay");
+		basic=sc.nextInt();
+		//sc.close();
+	}
+	void display()
+	{
+		double gross=calculategross(basic);
+		double net=calculatenet(gross,basic);
+		System.out.println("Gross salary: "+gross);
+		System.out.println("Net salary: "+net);
+	}
+}
+public class Driver {
+
+	public static void main(String[] args)
+	{
+		Programmer pro=new Programmer();
+		TeamLead tl=new TeamLead();
+		AssistantProjectManager apm=new AssistantProjectManager();
+		ProjectManager pm=new ProjectManager();
+		int x;
+		Scanner sc=new Scanner(System.in);
+		do
+		{
+			System.out.println("1 Accept personal details\n2 Accept basic salary\n3 Display personal details\n4 Display salary details\n0 Exit");
+			x=sc.nextInt();
+			int y;
+			switch(x)
+			{
+			case 1:
+				System.out.println("1 Programmer\n2 Team Lead\n3 Assistant Project Manager\n4 Project Manager");
+				y=sc.nextInt();
+				switch(y)
+				{
+				case 1:
+					pro.acceptin();
+					break;
+				case 2:
+					tl.acceptin();
+					break;
+				case 3:
+					apm.acceptin();
+					break;
+				case 4:
+					pm.acceptin();
+					break;
+				default:
+					System.out.println("Incorrect input");
+				}
+				break;
+			case 2:
+				System.out.println("1 Programmer\n2 Team Lead\n3 Assistant Project Manager\n4 Project Manager");
+				y=sc.nextInt();
+				switch(y)
+				{
+				case 1:
+					pro.accept();
+					break;
+				case 2:
+					tl.accept();
+					break;
+				case 3:
+					apm.accept();
+					break;
+				case 4:
+					pm.accept();
+					break;
+				default:
+					System.out.println("Incorrect input");
+				}
+				break;
+			case 3:
+				System.out.println("1 Programmer\n2 Team Lead\n3 Assistant Project Manager\n4 Project Manager");
+				y=sc.nextInt();
+				switch(y)
+				{
+				case 1:
+					pro.displaypersonal();
+					break;
+				case 2:
+					tl.displaypersonal();
+					break;
+				case 3:
+					apm.displaypersonal();
+					break;
+				case 4:
+					pm.displaypersonal();
+					break;
+				default:
+					System.out.println("Incorrect input");
+				}
+				break;
+			case 4:
+				if(pro.basic!=0) {
+				System.out.println("Programmer details");
+				pro.display();
+				}
+				if(tl.basic!=0) {
+				System.out.println("Team Lead details");
+				tl.display();
+				}
+				if(apm.basic!=0) {
+				System.out.println("Project Manager details");
+				apm.display();
+				}
+				if(pm.basic!=0) {
+				System.out.println("Project Manager details");
+				pm.display();
+				}
+				break;
+			case 0:
+				break;
+			default:
+				System.out.println("Invalid input");
+				break;
+			}
+		}
+		while(x!=0);
+	}
+}

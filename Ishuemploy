@@ -1,0 +1,132 @@
+package Assignment_2;
+import java.util.*;
+public class Employee {
+
+    public Scanner in = new Scanner(System.in);
+    public String Emp_name, Emp_ID, Address, Mail_ID;
+    public String mobile_no;
+    public void accept(){
+        System.out.println("Enter your name : ");
+        Emp_name = in.nextLine();
+        System.out.println("Enter your Employee ID : ");
+        Emp_ID = in.nextLine();
+        System.out.println("Enter your Address : ");
+        Address = in.nextLine();
+        do{
+            System.out.println("Enter your Mail ID : ");
+            Mail_ID = in.nextLine();
+        }while(!Mail_ID.contains("@gmail.com"));
+        do{
+            System.out.println("Enter your Mobile Number : ");
+            mobile_no = in.nextLine();
+        }while(mobile_no.length() != 10);
+
+    }
+    public void display(){
+        System.out.println("Employee name : " + Emp_name);
+        System.out.println("Employee ID : " + Emp_ID);
+        System.out.println("Employee Address : " + Address);
+        System.out.println("Employee Mail-ID : " + Mail_ID);
+        System.out.println("Employee Mobile No. : " + mobile_no);
+    }
+    public void cal(int BP){
+        double DA, HRA, PF, CF, net, gross;
+        DA = 0.97 * BP;
+        System.out.println("DA : " + DA);
+        HRA = 0.1 * BP;
+        System.out.println("HRA : " + HRA);
+        PF = 0.12 * BP;
+        System.out.println("PF : " + PF);
+        CF = 0.001 * BP;
+        System.out.println("CF : " + CF);
+        gross = BP + DA + HRA;
+        System.out.println("Gross Salary : " + gross);
+        net = gross - PF - CF;
+        System.out.println("Net Salary : " + net);
+    }
+}
+
+class Programmer extends Employee {
+    Scanner in = new Scanner(System.in);
+    int basic_pay(){
+        System.out.print("Enter Your Basic pay : ");
+        int BP;
+        BP = in.nextInt();
+        System.out.println("Basic Pay : " + BP);
+        return BP;
+    }
+}
+
+class Team_lead extends Employee{
+    int BP;
+    int basic_pay(){
+        System.out.print("Enter Your Basic pay : ");
+        BP = in.nextInt();
+        return BP;
+    }
+}
+
+class Assistant_Project_Manager extends Employee{
+    int BP;
+    int basic_pay(){
+        System.out.print("Enter Your Basic pay : ");
+        BP = in.nextInt();
+        return BP;
+    }
+}
+
+class Project_Manager extends Employee{
+    int BP;
+    int basic_pay(){
+        System.out.print("Enter Your Basic pay : ");
+        BP = in.nextInt();
+        return BP;
+    }
+}
+
+class driver extends Employee{
+    public static void main(String[] args){
+        int con;
+        Scanner in = new Scanner(System.in);
+        do{
+            System.out.println(" 1.Programmer \n 2.Team Lead \n 3.Assistant Project Manager \n 4.Project Manager \n Enter your choice : ");
+            int ch;
+            ch = in.nextInt();
+            if(ch == 1){
+                Programmer p = new Programmer();
+                p.accept();
+                int BP;
+                BP = p.basic_pay();
+                p.display();
+                p.cal(BP);
+            }
+            else if(ch == 2){
+                Team_lead t = new Team_lead();
+                t.accept();
+                int BP;
+                BP = t.basic_pay();
+                t.display();
+                t.cal(BP);
+            }
+            else if(ch == 3){
+                Assistant_Project_Manager a = new Assistant_Project_Manager();
+                a.accept();
+                int BP;
+                BP = a.basic_pay();
+                a.display();
+                a.cal(BP);
+            }
+            else if(ch == 4){
+                Project_Manager m = new Project_Manager();
+                m.accept();
+                int BP;
+                BP = m.basic_pay();
+                m.display();
+                m.cal(BP);
+            }
+            System.out.println("If you want to continue press 1 : (Else press 0) ");
+            con = in.nextInt();
+        }while(con == 1);
+    }
+
+}
